@@ -1,24 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useState } from "react";
+
+import Login from "./components/Login";
+import HomePage from "./components/HomePage";
+import UserInfo from "./components/UserInfo";
+import PostList from "./components/PostList";
 
 function App() {
+  const [userName, setUserName] = useState("");
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login setUserName={setUserName} />} />
+        <Route path="/home" element={<HomePage userName={userName} />} />
+        <Route path="/postlist" element={<PostList userName={userName} />} />
+        <Route path="/UserInfo" element={<UserInfo userName={userName} />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
