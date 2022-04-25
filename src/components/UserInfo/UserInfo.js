@@ -1,11 +1,9 @@
-import { useState, useEffect } from "react";
-import PropTypes from "prop-types";
-
+import { useState, useEffect } from "react"
 import { Link } from "react-router-dom";
 
 import { adminData } from "../../service/User/api";
 
-const UserInfo = (props) => {
+const UserInfo = () => {
   const [data, setData] = useState({});
 
   useEffect(() => {
@@ -22,7 +20,7 @@ const UserInfo = (props) => {
     <>
       <header>
         <h3>
-          <Link to="/userinfo">{props.userName || props.name} </Link>{" "}
+          <Link to="/userinfo">{localStorage.getItem("username")} </Link>{" "}
           Hoşgeldiniz.
         </h3>
       </header>
@@ -44,14 +42,6 @@ const UserInfo = (props) => {
       </main>
     </>
   );
-};
-
-UserInfo.propTypes = {
-  userName: PropTypes.string.isRequired,
-};
-
-UserInfo.defaultProps = {
-  name: "Leanne Graham",
 };
 
 export default UserInfo;

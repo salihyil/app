@@ -12,5 +12,12 @@ const postList = async () => {
 
   return queryMemberResponse.data;
 };
+const comments = async ({ postId }) => {
+  const queryMemberResponse = await axiosInstance.get(
+    `${API_ROUTES.comments}?postId=${postId}`
+  );
+  console.log(queryMemberResponse);
+  return queryMemberResponse.data;
+};
 
-export { adminData, postList };
+export { adminData, postList, comments };

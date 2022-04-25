@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
-import PropTypes from "prop-types";
 
 import { postList } from "../../service/User/api";
 
-const HomePage = (props) => {
+const HomePage = () => {
   const [postData, setPostData] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       setPostData(await postList());
+      setLoading(false);
     };
 
     fetchData();
@@ -19,33 +21,29 @@ const HomePage = (props) => {
     <>
       <header>
         <h3>
-          <Link to="/userinfo">{props.userName || props.name} </Link>
+          <Link to="/userinfo">{localStorage.getItem("username")} </Link>
           Hoşgeldiniz.
         </h3>
       </header>
       <main>
         <h4>Post Listesi Başlıkları</h4>
-        <ol>
-          {postData.map((data, i) => {
-            return (
-              <li key={i}>
-                <Link to="/postlist">{data.title}</Link>
-              </li>
-            );
-          })}
-        </ol>
+        {loading ? (
+          <div>Loading...</div>
+        ) : (
+          <ol>
+            {postData.map((data, i) => {
+              return (
+                <li key={i}>
+                  <Link to={`/postlist/${data.id}`}>{data.title}</Link>
+                </li>
+              );
+            })}
+          </ol>
+        )}
       </main>
       <Outlet />
     </>
   );
-};
-
-HomePage.propTypes = {
-  userName: PropTypes.string.isRequired,
-};
-
-HomePage.defaultProps = {
-  name: "Leanne Graham",
 };
 
 export default HomePage;

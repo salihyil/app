@@ -1,41 +1,37 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
-import "./style.css";
 import { adminData } from "../../service/User/api";
+import "./style.css";
+import HomePage from "../HomePage";
+import Authentication from "../Authentication";
 
-const Login = ({ setUserName }) => {
-  const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const Login = () => {
+  const [adminEmail, setAdminEmail] = useState("");
+  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
+    if (localStorage.getItem("user")) {
+      setSuccess(true);
+    } else {
+      setSuccess(false);
+    }
     const fetchData = async () => {
       let data = await adminData();
-      setUserName(data[0].name);
-      setPassword(data[0].email);
+      localStorage.setItem("username", data[0].name);
+      setAdminEmail(data[0].email);
     };
-
     fetchData();
-  }, [setUserName]);
 
-  const hangleLogin = () => {
-    if (email === password.toLowerCase()) {
-      navigate("/home");
-    } else {
-      alert("Email is incorrect");
-    }
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="App-header">
-      <input
-        type="text"
-        placeholder="email gir:"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <button onClick={hangleLogin}>Giriş Yap</button>
+      {success ? (
+        <HomePage />
+      ) : (
+        <Authentication setSuccess={setSuccess} adminEmail={adminEmail} />
+      )}
     </div>
   );
 };
