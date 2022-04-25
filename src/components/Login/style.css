@@ -4,7 +4,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: white;
 }
 
 input {
@@ -26,4 +25,8 @@ button {
 }
 button:hover {
   opacity: 0.8;
+}
+
+form {
+  display: contents;
 }
