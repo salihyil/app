@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import { postComment } from "../../service/User/api";
-import HeaderUser from "../../components/HeaderUser";
+import "./styles.css";
 
 const PostComments = () => {
   const params = useParams();
@@ -18,20 +18,22 @@ const PostComments = () => {
   }, []);
 
   return (
-    <div>
-      <HeaderUser />
-      {postCommentData.map((data, i) => {
-        return (
-          <ul key={i}>
-            <li>
-              <p>{data.name}</p>
-              <p>{data.body}</p>
-              <p>{data.email}</p>
+    <>
+      <h3>Comments</h3>
+      <ul>
+        {postCommentData.map((data, i) => {
+          return (
+            <li key={i}>
+              <h4>{data.name}</h4>
+              <blockquote className="pullquote">
+                {data.body}
+                <strong>&mdash; {data.email}</strong>
+              </blockquote>
             </li>
-          </ul>
-        );
-      })}
-    </div>
+          );
+        })}
+      </ul>
+    </>
   );
 };
 

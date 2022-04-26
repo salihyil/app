@@ -1,7 +1,9 @@
-import { useState, useEffect } from "react"
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+
+import HeaderUser from "../../components/HeaderUser";
 
 import { adminData } from "../../service/User/api";
+import "./styles.css";
 
 const UserInfo = () => {
   const [data, setData] = useState({});
@@ -18,13 +20,8 @@ const UserInfo = () => {
 
   return (
     <>
-      <header>
-        <h3>
-          <Link to="/userinfo">{localStorage.getItem("username")} </Link>{" "}
-          Hoşgeldiniz.
-        </h3>
-      </header>
-      <main>
+      <HeaderUser />
+      <main className="user-info">
         <h4>User Info</h4>
 
         <p>

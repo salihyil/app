@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { postList } from "../../service/User/api";
 import HeaderUser from "../../components/HeaderUser";
+import "./style.css";
 
 const HomePage = () => {
   const [postListData, setPostListData] = useState([]);
@@ -21,7 +22,7 @@ const HomePage = () => {
   return (
     <>
       <HeaderUser />
-      <main>
+      <main className="homepage">
         <h4>Post Listesi Başlıkları</h4>
         {loading ? (
           <div>Loading...</div>
@@ -37,7 +38,6 @@ const HomePage = () => {
           </ol>
         )}
       </main>
-      <Outlet />
     </>
   );
 };

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import { postDetail } from "../../service/User/api";
 import HeaderUser from "../../components/HeaderUser";
+import PostComments from "../PostComments";
+import "./styles.css";
 
 const PostDetail = () => {
   const params = useParams();
@@ -18,15 +20,15 @@ const PostDetail = () => {
   }, []);
 
   return (
-    <div>
+    <div className="">
       <HeaderUser />
-      <main>
-        <h3>{postDetailData.title}</h3>
-        <p>
-          <Link to={`/postcomments/${postDetailData.id}`}>
-            {postDetailData.body}
-          </Link>
-        </p>
+      <main className="detail-main">
+        <h3>Post Detay Başlıkları</h3>
+        <h4>{postDetailData.title}</h4>
+        <p>{postDetailData.body}</p>
+      </main>
+      <main className="comments-main">
+        <PostComments />
       </main>
     </div>
   );

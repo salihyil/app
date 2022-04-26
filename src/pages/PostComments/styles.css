@@ -1,0 +1,35 @@
+.comments-main {
+  margin: 0 40px;
+}
+
+blockquote {
+  clear: both;
+  font-weight: 700;
+  padding: 1em 1em 1em 3em;
+  margin: 0 0 2em;
+  width: 75%;
+  position: relative;
+  font-family: Georgia, serif;
+  font-size: 1em;
+}
+
+blockquote::before {
+  content: "\201C";
+  font-family: Georgia, serif;
+  font-size: 3em;
+  font-weight: bold;
+  color: var(--accentcolor);
+  position: absolute;
+  left: 0;
+  top: 5px;
+}
+
+blockquote::after {
+  content: "";
+}
+
+blockquote strong {
+  display: block;
+  margin-top: 0.5em;
+  font-size: 0.8em;
+}
