@@ -1,16 +1,15 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Login from "./components/Login";
-import UserInfo from "./components/UserInfo";
-import PostList from "./components/PostList";
+import { Login, UserInfo, PostComments, PostDetail } from "./pages";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/postlist/:id" element={<PostList />} />
-        <Route path="/UserInfo" element={<UserInfo />} />
+        <Route path="/postdetail/:id" element={<PostDetail />} />
+        <Route path="/postcomments/:id" element={<PostComments />} />
+        <Route path="/userInfo" element={<UserInfo />} />
       </Routes>
     </BrowserRouter>
   );

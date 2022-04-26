@@ -2,15 +2,16 @@ import { useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 
 import { postList } from "../../service/User/api";
+import HeaderUser from "../../components/HeaderUser";
 
 const HomePage = () => {
-  const [postData, setPostData] = useState([]);
+  const [postListData, setPostListData] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
-      setPostData(await postList());
+      setPostListData(await postList());
       setLoading(false);
     };
 
@@ -19,22 +20,17 @@ const HomePage = () => {
 
   return (
     <>
-      <header>
-        <h3>
-          <Link to="/userinfo">{localStorage.getItem("username")} </Link>
-          Hoşgeldiniz.
-        </h3>
-      </header>
+      <HeaderUser />
       <main>
         <h4>Post Listesi Başlıkları</h4>
         {loading ? (
           <div>Loading...</div>
         ) : (
           <ol>
-            {postData.map((data, i) => {
+            {postListData.map((data, i) => {
               return (
                 <li key={i}>
-                  <Link to={`/postlist/${data.id}`}>{data.title}</Link>
+                  <Link to={`/postdetail/${data.id}`}>{data.title}</Link>
                 </li>
               );
             })}

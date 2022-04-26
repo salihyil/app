@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 import { adminData } from "../../service/User/api";
 import "./style.css";
+
 import HomePage from "../HomePage";
 import Authentication from "../Authentication";
 
@@ -26,7 +27,7 @@ const Login = () => {
   }, []);
 
   return (
-    <div className="App-header">
+    <div className="header">
       {success ? (
         <HomePage />
       ) : (
