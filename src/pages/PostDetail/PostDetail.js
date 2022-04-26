@@ -20,7 +20,7 @@ const PostDetail = () => {
   }, []);
 
   return (
-    <div className="">
+    <div>
       <HeaderUser />
       <main className="detail-main">
         <h3>Post Detay Başlıkları</h3>
