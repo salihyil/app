@@ -16,7 +16,7 @@ const comments = async ({ postId }) => {
   const queryMemberResponse = await axiosInstance.get(
     `${API_ROUTES.comments}?postId=${postId}`
   );
-  console.log(queryMemberResponse);
+
   return queryMemberResponse.data;
 };
 
