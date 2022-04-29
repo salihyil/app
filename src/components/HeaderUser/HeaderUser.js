@@ -1,15 +1,25 @@
 import { Link } from "react-router-dom";
+import "./style.css";
 
-const HeaderUser = () => {
+const HeaderUser = ({ userName }) => {
+  const logout = () => {
+    localStorage.removeItem("userEmail");
+
+    window.location.reload();
+  };
+
   return (
-    <header>
-      <h3 style={{ textAlign: "center" }}>
-        <Link style={{ color: "red" }} to="/userinfo">
-          {localStorage.getItem("username")}{" "}
-        </Link>
-        Hoşgeldiniz.
-      </h3>
-    </header>
+    <>
+      <div className="header-user">
+        <h3 style={{ textAlign: "center" }}>
+          <Link style={{ color: "red" }} to="/userinfo">
+            {userName}{" "}
+          </Link>
+          Hoşgeldiniz.
+        </h3>
+        <button onClick={logout}>Logout</button>
+      </div>
+    </>
   );
 };
 

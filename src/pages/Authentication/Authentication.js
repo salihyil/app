@@ -1,13 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Formik, Form, Field } from "formik";
 import PropTypes from "prop-types";
 
 import { VALIDATION_SCHEMA } from "./validate";
+import { userData } from "../../service/User/api";
+import { userEmail } from "../../service/User/constants";
 
-const Authentication = ({ setSuccess, adminEmail }) => {
+const Authentication = ({ setSuccess, setUserName }) => {
+  const [user, setUser] = useState({});
+
+  const [errorMsg, setErrorMSg] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      let userDta = await userData(userEmail);
+
+      if (userDta) {
+        setUser(userDta[0]);
+        setUserName(userDta[0].name);
+      } else {
+        setSuccess(false);
+        localStorage.removeItem("userEmail");
+        setErrorMSg(true);
+      }
+    };
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const handleSubmit = (event) => {
-    if (event.email === adminEmail.toLowerCase()) {
-      localStorage.setItem("user", event.email);
+    if (user.email.toLowerCase() === event.email) {
+      localStorage.setItem("userEmail", event.email);
       setSuccess(true);
     } else {
       setSuccess(false);
@@ -30,6 +53,9 @@ const Authentication = ({ setSuccess, adminEmail }) => {
               <div style={{ color: "red" }}>{props.errors.email}</div>
             ) : null}
             <button type="submit">Giriş Yap</button>
+            {errorMsg ? (
+              <div style={{ color: "red" }}>Service yüklenemedi.</div>
+            ) : null}
           </Form>
         );
       }}

@@ -1,16 +1,45 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 
-import { Login, UserInfo, PostDetail } from "./pages";
+import { Layout, UserInfo, PostDetail } from "./pages";
+
+const NoMatch = () => {
+  return <p>There's nothing here: 404!</p>;
+};
+
+const ProtectedRoute = ({ children }) => {
+  const token = localStorage.getItem("userEmail");
+
+  if (!token) {
+    return <Navigate to="/" replace />;
+  }
+
+  return children;
+};
 
 function App() {
   return (
-    <BrowserRouter>
+    <>
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/postdetail/:id" element={<PostDetail />} />
-        <Route path="/userInfo" element={<UserInfo />} />
+        <Route path="/" element={<Layout />} />
+        <Route
+          path="/postdetail/:id"
+          element={
+            <ProtectedRoute>
+              <PostDetail />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/userinfo"
+          element={
+            <ProtectedRoute>
+              <UserInfo />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="*" element={<NoMatch />} />
       </Routes>
-    </BrowserRouter>
+    </>
   );
 }
 

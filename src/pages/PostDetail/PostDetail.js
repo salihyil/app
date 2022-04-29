@@ -9,10 +9,17 @@ import "./styles.css";
 const PostDetail = () => {
   const params = useParams();
   const [postDetailData, setPostDetailData] = useState({});
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
-      setPostDetailData(await postDetail({ postId: params.id }));
+      const postDtlData = await postDetail({ postId: params.id });
+
+      if (postDtlData) {
+        setPostDetailData(postDtlData);
+      } else {
+        setLoading(true);
+      }
     };
 
     fetchData();
@@ -24,8 +31,14 @@ const PostDetail = () => {
       <HeaderUser />
       <main className="detail-main">
         <h3>Post Detay Başlıkları</h3>
-        <h4>{postDetailData.title}</h4>
-        <p>{postDetailData.body}</p>
+        {loading ? (
+          <div style={{ color: "red" }}>Loading...</div>
+        ) : (
+          <>
+            <h4>{postDetailData.title}</h4>
+            <p>{postDetailData.body}</p>
+          </>
+        )}
       </main>
       <main className="comments-main">
         <PostComments />

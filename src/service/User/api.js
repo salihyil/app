@@ -2,10 +2,12 @@ import axiosInstance from "../axios";
 
 import API_ROUTES from "./apiRoutes";
 
-const adminData = async () => {
-  const adminDataResponse = await axiosInstance.get(API_ROUTES.admin);
+const userData = async (userEmail) => {
+  const usersDataResponse = await axiosInstance.get(
+    `${API_ROUTES.users}?email=${userEmail}`
+  );
 
-  return adminDataResponse.data;
+  return usersDataResponse.data;
 };
 
 const postList = async () => {
@@ -30,4 +32,4 @@ const postComment = async ({ postId }) => {
   return postCommentResponse.data;
 };
 
-export { adminData, postList, postDetail, postComment };
+export { userData, postList, postDetail, postComment };

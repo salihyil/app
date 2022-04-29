@@ -5,23 +5,27 @@ import { postList } from "../../service/User/api";
 import HeaderUser from "../../components/HeaderUser";
 import "./style.css";
 
-const HomePage = () => {
+const HomePage = ({ userName }) => {
   const [postListData, setPostListData] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true);
-      setPostListData(await postList());
-      setLoading(false);
-    };
+      const listData = await postList();
 
+      if (listData) {
+        setPostListData(listData);
+      } else {
+        setLoading(true);
+      }
+    };
     fetchData();
   }, []);
 
   return (
     <>
-      <HeaderUser />
+      <HeaderUser userName={userName} />
+
       <main className="homepage">
         <h4>Post Listesi Başlıkları</h4>
         {loading ? (
