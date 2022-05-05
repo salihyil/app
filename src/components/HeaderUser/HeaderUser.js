@@ -4,8 +4,7 @@ import "./style.css";
 const HeaderUser = ({ userName }) => {
   const logout = () => {
     localStorage.removeItem("userEmail");
-
-    window.location.reload();
+    window.location.href = "/";
   };
 
   return (

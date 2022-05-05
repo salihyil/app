@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
+import { Outlet } from "react-router-dom";
+
+import Authentication from "../Authentication";
+import HeaderUser from "../../components/HeaderUser";
 
 import "./style.css";
 
-import HomePage from "../HomePage";
-import Authentication from "../Authentication";
-
-const Layout = ({ userName, setUserName }) => {
+const Layout = () => {
+  const [userName, setUserName] = useState("");
   const [success, setSuccess] = useState(false);
 
   useEffect(() => {
@@ -14,15 +16,14 @@ const Layout = ({ userName, setUserName }) => {
     } else {
       setSuccess(false);
     }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <div className="header">
       {success ? (
         <>
-          <HomePage userName={userName} />
+          <HeaderUser userName={userName} />
+          <Outlet />
         </>
       ) : (
         <Authentication setSuccess={setSuccess} setUserName={setUserName} />

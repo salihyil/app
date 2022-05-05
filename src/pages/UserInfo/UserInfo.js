@@ -1,12 +1,10 @@
 import { useState, useEffect } from "react";
 
-import HeaderUser from "../../components/HeaderUser";
-
 import { userData } from "../../service/User/api";
 import { userEmail } from "../../service/User/constants";
 import "./styles.css";
 
-const UserInfo = ({ userName }) => {
+const UserInfo = () => {
   const [user, setUser] = useState({});
 
   const [loading, setLoading] = useState(false);
@@ -27,7 +25,6 @@ const UserInfo = ({ userName }) => {
 
   return (
     <>
-      <HeaderUser userName={userName} />
       <main className="user-info">
         <h4>User Info</h4>
 

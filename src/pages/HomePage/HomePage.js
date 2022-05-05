@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { postList } from "../../service/User/api";
-import HeaderUser from "../../components/HeaderUser";
+
 import "./style.css";
 
-const HomePage = ({ userName }) => {
+const HomePage = () => {
   const [postListData, setPostListData] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -20,12 +20,11 @@ const HomePage = ({ userName }) => {
       }
     };
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <>
-      <HeaderUser userName={userName} />
-
       <main className="homepage">
         <h4>Post Listesi Başlıkları</h4>
         {loading ? (
