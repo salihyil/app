@@ -8,7 +8,6 @@ import { userEmail } from "../../service/User/constants";
 
 const Authentication = ({ setSuccess, setUserName }) => {
   const [user, setUser] = useState({});
-
   const [errorMsg, setErrorMSg] = useState(false);
 
   useEffect(() => {

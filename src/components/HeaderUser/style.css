@@ -3,3 +3,8 @@
   display: flex;
   justify-content: space-around;
 }
+
+.logout {
+  margin-left: 5px;
+  background-color: #f44336;
+}

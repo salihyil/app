@@ -8,6 +8,7 @@ import "./style.css";
 const HomePage = () => {
   const [postListData, setPostListData] = useState([]);
   const [loading, setLoading] = useState(false);
+  console.log(loading);
 
   useEffect(() => {
     const fetchData = async () => {

@@ -6,6 +6,9 @@ const HeaderUser = ({ userName }) => {
     localStorage.removeItem("userEmail");
     window.location.href = "/";
   };
+  const backPath = () => {
+    window.history.back();
+  };
 
   return (
     <>
@@ -16,7 +19,12 @@ const HeaderUser = ({ userName }) => {
           </Link>
           Hoşgeldiniz.
         </h3>
-        <button onClick={logout}>Logout</button>
+        <div>
+          <button onClick={backPath}>Back</button>
+          <button className="logout" onClick={logout}>
+            Logout
+          </button>
+        </div>
       </div>
     </>
   );
