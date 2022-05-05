@@ -1,10 +1,15 @@
 import { useState } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, Link } from "react-router-dom";
 
 import { Layout, UserInfo, PostDetail } from "./pages";
 
 const NoMatch = () => {
-  return <p>There's nothing here: 404!</p>;
+  return (
+    <section>
+      <p>There's nothing here: 404!</p>
+      <Link to={`/`}>Go back to the homepage</Link>
+    </section>
+  );
 };
 
 const ProtectedRoute = ({ children }) => {
@@ -28,7 +33,7 @@ function App() {
           element={<Layout userName={userName} setUserName={setUserName} />}
         />
         <Route
-          path="/postdetail/:id"
+          path="postdetail/:id"
           element={
             <ProtectedRoute>
               <PostDetail userName={userName} />
