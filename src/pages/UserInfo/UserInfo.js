@@ -6,7 +6,7 @@ import { userData } from "../../service/User/api";
 import { userEmail } from "../../service/User/constants";
 import "./styles.css";
 
-const UserInfo = () => {
+const UserInfo = ({ userName }) => {
   const [user, setUser] = useState({});
 
   const [loading, setLoading] = useState(false);
@@ -27,7 +27,7 @@ const UserInfo = () => {
 
   return (
     <>
-      <HeaderUser />
+      <HeaderUser userName={userName} />
       <main className="user-info">
         <h4>User Info</h4>
 

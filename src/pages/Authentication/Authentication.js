@@ -53,9 +53,7 @@ const Authentication = ({ setSuccess, setUserName }) => {
               <div style={{ color: "red" }}>{props.errors.email}</div>
             ) : null}
             <button type="submit">Giriş Yap</button>
-            {errorMsg ? (
-              <div style={{ color: "red" }}>Service yüklenemedi.</div>
-            ) : null}
+            {errorMsg ? <div style={{ color: "red" }}>Error!</div> : null}
           </Form>
         );
       }}

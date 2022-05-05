@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import { Layout, UserInfo, PostDetail } from "./pages";
@@ -17,15 +18,20 @@ const ProtectedRoute = ({ children }) => {
 };
 
 function App() {
+  const [userName, setUserName] = useState("");
+
   return (
     <>
       <Routes>
-        <Route path="/" element={<Layout />} />
+        <Route
+          path="/"
+          element={<Layout userName={userName} setUserName={setUserName} />}
+        />
         <Route
           path="/postdetail/:id"
           element={
             <ProtectedRoute>
-              <PostDetail />
+              <PostDetail userName={userName} />
             </ProtectedRoute>
           }
         />
@@ -33,7 +39,7 @@ function App() {
           path="/userinfo"
           element={
             <ProtectedRoute>
-              <UserInfo />
+              <UserInfo userName={userName} />
             </ProtectedRoute>
           }
         />

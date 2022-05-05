@@ -5,9 +5,8 @@ import "./style.css";
 import HomePage from "../HomePage";
 import Authentication from "../Authentication";
 
-const Layout = () => {
+const Layout = ({ userName, setUserName }) => {
   const [success, setSuccess] = useState(false);
-  const [userName, setUserName] = useState("");
 
   useEffect(() => {
     if (localStorage.getItem("userEmail")) {

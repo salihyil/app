@@ -6,7 +6,7 @@ import HeaderUser from "../../components/HeaderUser";
 import PostComments from "../PostComments";
 import "./styles.css";
 
-const PostDetail = () => {
+const PostDetail = ({ userName }) => {
   const params = useParams();
   const [postDetailData, setPostDetailData] = useState({});
   const [loading, setLoading] = useState(false);
@@ -28,7 +28,7 @@ const PostDetail = () => {
 
   return (
     <div>
-      <HeaderUser />
+      <HeaderUser userName={userName} />
       <main className="detail-main">
         <h3>Post Detay Başlıkları</h3>
         {loading ? (
