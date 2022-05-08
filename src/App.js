@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 
-import { Layout, HomePage, UserInfo, PostDetail, NoMatch } from "./pages";
+import { HomePage, UserInfo, PostDetail, NoMatch } from "./pages";
+import Layout from "./components/Layout";
 
 function App() {
   return (

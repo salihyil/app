@@ -1,39 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import PropTypes from "prop-types";
 
 import { VALIDATION_SCHEMA } from "./validate";
 import { userData } from "../../service/User/api";
-import { userEmail } from "../../service/User/constants";
 
-const Authentication = ({ setSuccess, setUserName }) => {
-  const [user, setUser] = useState({});
+const Authentication = ({ setSuccess }) => {
   const [errorMsg, setErrorMSg] = useState(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      let userDta = await userData(userEmail);
+  const fetchData = async (email) => {
+    let userDta = await userData(email);
 
-      if (userDta) {
-        setUser(userDta[0]);
-        setUserName(userDta[0].name);
-      } else {
-        setSuccess(false);
-        localStorage.removeItem("userEmail");
-        setErrorMSg(true);
-      }
-    };
-    fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const handleSubmit = (event) => {
-    if (user.email.toLowerCase() === event.email) {
-      localStorage.setItem("userEmail", event.email);
+    if (Array.isArray(userDta)) {
+      localStorage.setItem("userEmail", userDta[0].email);
       setSuccess(true);
     } else {
       setSuccess(false);
+      localStorage.removeItem("userEmail");
+      setErrorMSg(true);
     }
+  };
+
+  const handleSubmit = ({ email }) => {
+    fetchData(email);
   };
 
   return (

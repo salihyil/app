@@ -1,23 +1,26 @@
 import { useState, useEffect } from "react";
 
+import Loading from "../../components/Loading";
 import { userData } from "../../service/User/api";
-import { userEmail } from "../../service/User/constants";
 import "./styles.css";
 
 const UserInfo = () => {
   const [user, setUser] = useState({});
-
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
-      let data = await userData(userEmail);
+      setLoading(true);
+      let data = await userData(localStorage.getItem("userEmail"));
 
       if (data) {
         setUser(data[0]);
       } else {
-        setLoading(true);
+        setError("User bulunamadı");
       }
+
+      setLoading(false);
     };
 
     fetchData();
@@ -27,9 +30,9 @@ const UserInfo = () => {
     <>
       <main className="user-info">
         <h4>User Info</h4>
-
+        {error ? <div style={{ color: "red" }}>{error}</div> : null}
         {loading ? (
-          <div style={{ color: "red" }}>Loading...</div>
+          <Loading />
         ) : (
           <>
             <p>

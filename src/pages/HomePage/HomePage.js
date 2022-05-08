@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { postList } from "../../service/User/api";
-
+import Loading from "../../components/Loading";
 import "./style.css";
 
 const HomePage = () => {
@@ -11,6 +11,7 @@ const HomePage = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       const listData = await postList();
 
       if (listData) {
@@ -18,6 +19,8 @@ const HomePage = () => {
       } else {
         setLoading(true);
       }
+
+      setLoading(false);
     };
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -28,7 +31,7 @@ const HomePage = () => {
       <main className="homepage">
         <h4>Post Listesi Başlıkları</h4>
         {loading ? (
-          <div>Loading...</div>
+          <Loading />
         ) : (
           <ol>
             {postListData.map((data, i) => {

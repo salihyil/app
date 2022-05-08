@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import Loading from "../../components/Loading";
 
 import { postComment } from "../../service/User/api";
 import "./styles.css";
@@ -8,16 +9,20 @@ const PostComments = () => {
   const params = useParams();
   const [postCommentData, setPostCommentData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       const commentData = await postComment({ postId: params.id });
 
       if (commentData) {
         setPostCommentData(commentData);
+        setError("");
       } else {
-        setLoading(true);
+        setError("Comments bulunamadı");
       }
+      setLoading(false);
     };
 
     fetchData();
@@ -27,11 +32,11 @@ const PostComments = () => {
   return (
     <>
       <h3>Comments</h3>
+      {error ? <div style={{ color: "red" }}>{error}</div> : null}
       {loading ? (
-        <div style={{ color: "red" }}>Loading...</div>
+        <Loading />
       ) : (
         <>
-          {" "}
           <ul>
             {postCommentData.map((data, i) => {
               return (

@@ -1,22 +1,36 @@
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import Loading from "../Loading";
 import "./style.css";
 
-const HeaderUser = ({ userName }) => {
+const HeaderUser = ({ userName, setSuccess }) => {
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (userName) {
+      setLoading(false);
+    } else {
+      setLoading(true);
+    }
+  }, [userName]);
+
   const logout = () => {
     localStorage.removeItem("userEmail");
-    window.location.href = "/";
+    setSuccess(false);
+    navigate("/");
   };
   const backPath = () => {
-    window.history.back();
+    navigate(-1);
   };
 
   return (
     <>
-      <div className="header-user">
+      <header>
         <h3 style={{ textAlign: "center" }}>
           <Link style={{ color: "red" }} to="/userinfo">
-            {userName}{" "}
-          </Link>
+            {loading ? <Loading /> : userName}
+          </Link>{" "}
           Hoşgeldiniz.
         </h3>
         <div>
@@ -25,7 +39,7 @@ const HeaderUser = ({ userName }) => {
             Logout
           </button>
         </div>
-      </div>
+      </header>
     </>
   );
 };
