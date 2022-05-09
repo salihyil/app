@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { VALIDATION_SCHEMA } from "./validate";
 
-/* import { userData } from "../../service/User/api"; */
 import { fetchUserAsync } from "../../features/user/userSlice";
 
 const Authentication = () => {
