@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -5,8 +6,20 @@ import Authentication from "../../pages/Authentication";
 import HeaderUser from "../HeaderUser";
 import "./style.css";
 
+import { setSuccess, fetchUserAsync } from "../../features/user/userSlice";
+
 const Layout = () => {
+  const dispatch = useDispatch();
   const { success } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    if (localStorage.getItem("userEmail")) {
+      dispatch(fetchUserAsync(localStorage.getItem("userEmail")));
+      dispatch(setSuccess(true));
+    } else {
+      dispatch(setSuccess(false));
+    }
+  }, [dispatch]);
 
   return (
     <div>
