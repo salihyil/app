@@ -49,8 +49,10 @@ export const userSlice = createSlice({
         localStorage.setItem("userEmail", state.userDta[0].email);
         state.userName = state.userDta[0].name;
         state.success = true;
+        state.loading = false;
       } else {
         state.success = false;
+        state.loading = false;
         state.error = "Email is not found";
       }
     },
