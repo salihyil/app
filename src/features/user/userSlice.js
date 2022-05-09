@@ -35,6 +35,7 @@ export const userSlice = createSlice({
       localStorage.removeItem("userEmail");
       state.success = false;
       state.userName = "";
+      state.error = false;
     },
   },
   extraReducers: {
