@@ -1,23 +1,28 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Loading from "../Loading";
 import "./style.css";
 
-const HeaderUser = ({ userName, setSuccess }) => {
+import { useSelector, useDispatch } from "react-redux";
+import { Logout, setLoading } from "../../features/user/userSlice";
+
+const HeaderUser = () => {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+
+  const { userName, loading } = useSelector((state) => state.user);
 
   useEffect(() => {
     if (userName) {
-      setLoading(false);
+      dispatch(setLoading(false));
     } else {
-      setLoading(true);
+      dispatch(setLoading(true));
     }
-  }, [userName]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const logout = () => {
-    localStorage.removeItem("userEmail");
-    setSuccess(false);
+    dispatch(Logout());
     navigate("/");
   };
   const backPath = () => {
