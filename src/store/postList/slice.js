@@ -8,9 +8,9 @@ const initialState = {
 };
 
 export const postListAsync = createAsyncThunk("user/postList", async () => {
-  const postListAsync = await postList();
+  const postListDta = await postList();
 
-  return postListAsync;
+  return postListDta;
 });
 
 export const postListSlice = createSlice({

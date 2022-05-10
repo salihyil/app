@@ -1,6 +1,5 @@
 import React from "react";
 import { Formik, Form, Field } from "formik";
-import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
 
 import { VALIDATION_SCHEMA } from "./validate";
@@ -37,16 +36,6 @@ const Authentication = () => {
       }}
     </Formik>
   );
-};
-
-Authentication.propTypes = {
-  setSuccess: PropTypes.func,
-  adminEmail: PropTypes.string,
-};
-
-Authentication.defaultProps = {
-  setSuccess: () => false,
-  adminEmail: "",
 };
 
 export default Authentication;

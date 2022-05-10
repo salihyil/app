@@ -1,29 +1,18 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 import Loading from "../../components/Loading";
-import { userData } from "../../service/User/api";
+import { fetchUserAsync } from "../../store/userData/slice";
+
 import "./styles.css";
 
 const UserInfo = () => {
-  const [user, setUser] = useState({});
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const dispatch = useDispatch();
+  const { loading, error, userDta } = useSelector((state) => state.userData);
 
   useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      let data = await userData(localStorage.getItem("userEmail"));
-
-      if (data) {
-        setUser(data[0]);
-      } else {
-        setError("User bulunamadı");
-      }
-
-      setLoading(false);
-    };
-
-    fetchData();
+    dispatch(fetchUserAsync(localStorage.getItem("userEmail")));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -36,16 +25,16 @@ const UserInfo = () => {
         ) : (
           <>
             <p>
-              <b>User Name:</b> <i>{user.name}</i>
+              <b>User Name:</b> <i>{userDta[0].name}</i>
             </p>
             <p>
-              <b>Phone:</b> <i>{user.phone}</i>
+              <b>Phone:</b> <i>{userDta[0].phone}</i>
             </p>
             <p>
-              <b>Username:</b> <i>{user.username}</i>
+              <b>Username:</b> <i>{userDta[0].username}</i>
             </p>
             <p>
-              <b>Website:</b> <i>{user.website}</i>
+              <b>Website:</b> <i>{userDta[0].website}</i>
             </p>
           </>
         )}

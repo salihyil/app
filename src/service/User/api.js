@@ -16,7 +16,7 @@ const postList = async () => {
   return postListResponse.data;
 };
 
-const postDetail = async ({ postId }) => {
+const postDetail = async (postId) => {
   const postDetailResponse = await axiosInstance.get(
     `${API_ROUTES.posts}/${postId}`
   );
@@ -24,7 +24,7 @@ const postDetail = async ({ postId }) => {
   return postDetailResponse.data;
 };
 
-const postComment = async ({ postId }) => {
+const postComment = async (postId) => {
   const postCommentResponse = await axiosInstance.get(
     `${API_ROUTES.posts}/${postId}/comments`
   );
