@@ -4,13 +4,13 @@ import Loading from "../Loading";
 import "./style.css";
 
 import { useSelector, useDispatch } from "react-redux";
-import { Logout, setLoading } from "../../features/user/userSlice";
+import { Logout, setLoading } from "../../store/userData/slice";
 
 const HeaderUser = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { userName, loading } = useSelector((state) => state.user);
+  const { userName, loading } = useSelector((state) => state.userData);
 
   useEffect(() => {
     if (userName) {
