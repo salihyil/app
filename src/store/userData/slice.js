@@ -25,9 +25,6 @@ export const userSlice = createSlice({
     setSuccess: (state, action) => {
       state.success = action.payload;
     },
-    setUserName: (state, action) => {
-      state.userName = action.payload;
-    },
     setLoading: (state, action) => {
       state.loading = action.payload;
     },
@@ -44,6 +41,7 @@ export const userSlice = createSlice({
     },
     [fetchUserAsync.fulfilled]: (state, action) => {
       state.userDta = action.payload;
+      console.log(state.userDta.length > 0);
 
       if (state.userDta.length > 0) {
         localStorage.setItem("userEmail", state.userDta[0].email);
@@ -57,13 +55,13 @@ export const userSlice = createSlice({
       }
     },
     [fetchUserAsync.rejected]: (state, action) => {
+      state.loading = false;
       state.error = action.error.message;
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setSuccess, setUserName, setLoading, Logout } =
-  userSlice.actions;
+export const { setSuccess, setLoading, Logout } = userSlice.actions;
 
 export default userSlice.reducer;
