@@ -4,8 +4,10 @@ import { userData } from "../../service/User/api";
 const initialState = {
   userDta: [],
   success: false,
-  userName: "",
-  loading: false,
+  name: "",
+  phone: "",
+  website: "",
+  username: "",
   error: "",
 };
 
@@ -31,7 +33,7 @@ export const userSlice = createSlice({
     Logout: (state, action) => {
       localStorage.removeItem("userEmail");
       state.success = false;
-      state.userName = "";
+      state.name = "";
       state.error = false;
     },
   },
@@ -45,7 +47,11 @@ export const userSlice = createSlice({
 
       if (state.userDta.length > 0) {
         localStorage.setItem("userEmail", state.userDta[0].email);
-        state.userName = state.userDta[0].name;
+        state.name = state.userDta[0].name;
+        state.phone = state.userDta[0].phone;
+        state.username = state.userDta[0].username;
+        state.website = state.userDta[0].website;
+
         state.success = true;
         state.loading = false;
       } else {
