@@ -5,11 +5,11 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { VALIDATION_SCHEMA } from "./validate";
 
-import { fetchUserAsync } from "../../features/user/userSlice";
+import { fetchUserAsync } from "../../store/userData/slice";
 
 const Authentication = () => {
   const dispatch = useDispatch();
-  const { error } = useSelector((state) => state.user);
+  const { error } = useSelector((state) => state.userData);
 
   const handleSubmit = ({ email }) => {
     dispatch(fetchUserAsync(email));
