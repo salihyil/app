@@ -8,7 +8,9 @@ import "./styles.css";
 
 const UserInfo = () => {
   const dispatch = useDispatch();
-  const { loading, error, userDta } = useSelector((state) => state.userData);
+  const { loading, error, name, username, phone, website } = useSelector(
+    (state) => state.userData
+  );
 
   useEffect(() => {
     dispatch(fetchUserAsync(localStorage.getItem("userEmail")));
@@ -25,16 +27,16 @@ const UserInfo = () => {
         ) : (
           <>
             <p>
-              <b>User Name:</b> <i>{userDta[0].name}</i>
+              <b>Name:</b> <i>{name}</i>
             </p>
             <p>
-              <b>Phone:</b> <i>{userDta[0].phone}</i>
+              <b>Phone:</b> <i>{phone}</i>
             </p>
             <p>
-              <b>Username:</b> <i>{userDta[0].username}</i>
+              <b>Username:</b> <i>{username}</i>
             </p>
             <p>
-              <b>Website:</b> <i>{userDta[0].website}</i>
+              <b>Website:</b> <i>{website}</i>
             </p>
           </>
         )}
