@@ -10,10 +10,10 @@ const HeaderUser = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { userName, loading } = useSelector((state) => state.userData);
+  const { name, loading } = useSelector((state) => state.userData);
 
   useEffect(() => {
-    if (userName) {
+    if (name) {
       dispatch(setLoading(false));
     } else {
       dispatch(setLoading(true));
@@ -34,7 +34,7 @@ const HeaderUser = () => {
       <header>
         <h3 style={{ textAlign: "center" }}>
           <Link style={{ color: "red" }} to="/userinfo">
-            {loading ? <Loading /> : userName}
+            {loading ? <Loading /> : name}
           </Link>{" "}
           Hoşgeldiniz.
         </h3>
