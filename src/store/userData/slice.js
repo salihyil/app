@@ -1,18 +1,21 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { userData } from "../../service/User/api";
+import {
+  SLICE_NAME,
+  USEREMAIL_LOCAL_STORAGE,
+  ERROR_MSG,
+  TYPEPREFIX_NAME,
+} from "./constants";
 
 const initialState = {
   userDta: [],
-  success: false,
-  name: "",
-  phone: "",
-  website: "",
-  username: "",
+  userEmail: localStorage.getItem(USEREMAIL_LOCAL_STORAGE),
+  user: {},
   error: "",
 };
 
 export const fetchUserAsync = createAsyncThunk(
-  "user/fetchUser",
+  TYPEPREFIX_NAME,
   async (email) => {
     const userDta = await userData(email);
 
@@ -21,7 +24,7 @@ export const fetchUserAsync = createAsyncThunk(
 );
 
 export const userSlice = createSlice({
-  name: "user",
+  name: SLICE_NAME,
   initialState,
   reducers: {
     setSuccess: (state, action) => {
@@ -31,7 +34,7 @@ export const userSlice = createSlice({
       state.loading = action.payload;
     },
     Logout: (state, action) => {
-      localStorage.removeItem("userEmail");
+      localStorage.removeItem(USEREMAIL_LOCAL_STORAGE);
       state.success = false;
       state.name = "";
       state.error = false;
@@ -43,21 +46,17 @@ export const userSlice = createSlice({
     },
     [fetchUserAsync.fulfilled]: (state, action) => {
       state.userDta = action.payload;
-      console.log(state.userDta.length > 0);
 
       if (state.userDta.length > 0) {
-        localStorage.setItem("userEmail", state.userDta[0].email);
-        state.name = state.userDta[0].name;
-        state.phone = state.userDta[0].phone;
-        state.username = state.userDta[0].username;
-        state.website = state.userDta[0].website;
+        localStorage.setItem(USEREMAIL_LOCAL_STORAGE, state.userDta[0].email);
+        state.user = state.userDta[0];
 
         state.success = true;
         state.loading = false;
       } else {
         state.success = false;
         state.loading = false;
-        state.error = "Email is not found";
+        state.error = ERROR_MSG;
       }
     },
     [fetchUserAsync.rejected]: (state, action) => {
