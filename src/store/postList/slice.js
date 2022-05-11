@@ -1,18 +1,12 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { postList } from "../../service/User/api";
-import { SLICE_NAME, TYPEPREFIX_NAME } from "./constants";
+import { createSlice } from "@reduxjs/toolkit";
+
+import { SLICE_NAME } from "./constants";
 
 const initialState = {
   postListData: [],
   loading: false,
   error: "",
 };
-
-export const postListAsync = createAsyncThunk(TYPEPREFIX_NAME, async () => {
-  const postListDta = await postList();
-
-  return postListDta;
-});
 
 export const postListSlice = createSlice({
   name: SLICE_NAME,

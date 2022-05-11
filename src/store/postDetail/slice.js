@@ -8,14 +8,6 @@ const initialState = {
   error: "",
 };
 
-/* export const fetchPostDetailAsync = createAsyncThunk(
-  TYPEPREFIX_NAME,
-  async (id) => {
-    const postDetailDta = await postDetail(id);
-
-    return postDetailDta;
-  }
-); */
 
 export const postDetailSlice = createSlice({
   name: SLICE_NAME,
