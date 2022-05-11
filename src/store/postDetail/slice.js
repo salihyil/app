@@ -33,7 +33,6 @@ export const postDetailSlice = createSlice({
       state.error = action.error.message;
     },
   },
-  extraReducers: {},
 });
 
 export const { pendingPostDetail, fulfilledPostDetail, rejectedPostDetail } =
