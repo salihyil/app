@@ -9,13 +9,7 @@ import Loading from "../../components/Loading";
 
 const Authentication = () => {
   const dispatch = useDispatch();
-  const {
-    error,
-    loading,
-    user: { name },
-  } = useSelector((state) => state.userData);
-
-  console.log("Authentication name:", name);
+  const { error, loading } = useSelector((state) => state.userData);
 
   const handleSubmit = ({ email }) => {
     dispatch(loginRequest(email));

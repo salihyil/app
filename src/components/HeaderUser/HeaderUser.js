@@ -15,9 +15,6 @@ const HeaderUser = () => {
     loading,
   } = useSelector((state) => state.userData);
 
-  console.log("HeaderUser name:", name);
-  console.log("HeaderUser loading:", loading);
-
   useEffect(() => {
     if (name) {
       dispatch(setLoading(false));

@@ -1,10 +1,7 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 
-import { loginRequest, loginSuccess, loginError, setUserName } from "./slice";
+import { loginRequest, loginSuccess, loginError } from "./slice";
 import { userData } from "../../service/User/api";
-
-/* import { createBrowserHistory } from "history";
-const history = createBrowserHistory(); */
 
 function* authorizeUser({ payload }) {
   try {
