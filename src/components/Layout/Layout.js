@@ -6,24 +6,21 @@ import Authentication from "../../pages/Authentication";
 import HeaderUser from "../HeaderUser";
 import "./style.css";
 
-import { setSuccess, fetchUserAsync } from "../../store/userData/slice";
+import { fetchUserAsync } from "../../store/userData/slice";
 
 const Layout = () => {
   const dispatch = useDispatch();
-  const { success } = useSelector((state) => state.userData);
+  const { userEmail } = useSelector((state) => state.userData);
 
   useEffect(() => {
-    if (localStorage.getItem("userEmail")) {
+    if (userEmail) {
       dispatch(fetchUserAsync(localStorage.getItem("userEmail")));
-      dispatch(setSuccess(true));
-    } else {
-      dispatch(setSuccess(false));
     }
-  }, [dispatch]);
+  }, [dispatch, userEmail]);
 
   return (
     <div>
-      {success ? (
+      {userEmail ? (
         <>
           <HeaderUser />
           <div className="container">
