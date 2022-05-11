@@ -1,31 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import Loading from "../../components/Loading";
+import { useDispatch, useSelector } from "react-redux";
 
-import { postComment } from "../../service/User/api";
+import { fetchPostCommentAsync } from "../../store/postComment/slice";
+import Loading from "../../components/Loading";
 import "./styles.css";
 
 const PostComments = () => {
+  const dispatch = useDispatch();
   const params = useParams();
-  const [postCommentData, setPostCommentData] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+
+  const { postCommentData, loading, error } = useSelector(
+    (state) => state.postComment
+  );
 
   useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      const commentData = await postComment({ postId: params.id });
-
-      if (commentData) {
-        setPostCommentData(commentData);
-        setError("");
-      } else {
-        setError("Comments bulunamadı");
-      }
-      setLoading(false);
-    };
-
-    fetchData();
+    dispatch(fetchPostCommentAsync(params.id));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

@@ -1,33 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
+import { fetchPostDetailAsync } from "../../store/postDetail/slice";
+
 import Loading from "../../components/Loading";
-
-import { postDetail } from "../../service/User/api";
-
 import PostComments from "../PostComments";
 import "./styles.css";
 
 const PostDetail = () => {
+  const dispatch = useDispatch();
   const params = useParams();
-  const [postDetailData, setPostDetailData] = useState({});
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const { postDetailData, loading, error } = useSelector(
+    (state) => state.postDetail
+  );
 
   useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-
-      const postDtlData = await postDetail({ postId: params.id });
-      if (postDtlData) {
-        setPostDetailData(postDtlData);
-        setError("");
-      } else {
-        setError("Post bulunamadı");
-      }
-
-      setLoading(false);
-    };
-    fetchData();
+    dispatch(fetchPostDetailAsync(params.id));
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

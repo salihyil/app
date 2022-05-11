@@ -1,49 +1,36 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
 import Authentication from "../../pages/Authentication";
-import { userData } from "../../service/User/api";
 import HeaderUser from "../HeaderUser";
-
 import "./style.css";
 
+import { fetchUserAsync } from "../../store/userData/slice";
+import { USEREMAIL_LOCAL_STORAGE } from "../../store/userData/constants";
+
 const Layout = () => {
-  const [userName, setUserName] = useState("");
-  const [success, setSuccess] = useState(false);
+  const dispatch = useDispatch();
+  const { userEmail } = useSelector((state) => state.userData);
 
   useEffect(() => {
-    if (success) {
-      const fetchData = async (email) => {
-        let userDta = await userData(email);
-
-        if (Array.isArray(userDta)) {
-          setUserName(userDta[0].name);
-        } else {
-          setUserName("");
-        }
-      };
-      fetchData(localStorage.getItem("userEmail"));
+    if (userEmail) {
+      dispatch(fetchUserAsync(localStorage.getItem(USEREMAIL_LOCAL_STORAGE)));
     }
-
-    if (localStorage.getItem("userEmail")) {
-      setSuccess(true);
-    } else {
-      setSuccess(false);
-    }
-  }, [success]);
+  }, [dispatch, userEmail]);
 
   return (
     <div>
-      {success ? (
+      {userEmail ? (
         <>
-          <HeaderUser userName={userName} setSuccess={setSuccess} />
+          <HeaderUser />
           <div className="container">
             <Outlet />
           </div>
         </>
       ) : (
         <div className="container">
-          <Authentication setSuccess={setSuccess} />
+          <Authentication />
         </div>
       )}
     </div>

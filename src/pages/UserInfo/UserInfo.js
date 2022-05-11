@@ -1,30 +1,14 @@
-import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
 import Loading from "../../components/Loading";
-import { userData } from "../../service/User/api";
 import "./styles.css";
 
 const UserInfo = () => {
-  const [user, setUser] = useState({});
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      let data = await userData(localStorage.getItem("userEmail"));
-
-      if (data) {
-        setUser(data[0]);
-      } else {
-        setError("User bulunamadı");
-      }
-
-      setLoading(false);
-    };
-
-    fetchData();
-  }, []);
+  const {
+    loading,
+    error,
+    user: { name, username, phone, website },
+  } = useSelector((state) => state.userData);
 
   return (
     <>
@@ -36,16 +20,16 @@ const UserInfo = () => {
         ) : (
           <>
             <p>
-              <b>User Name:</b> <i>{user.name}</i>
+              <b>Name:</b> <i>{name}</i>
             </p>
             <p>
-              <b>Phone:</b> <i>{user.phone}</i>
+              <b>Phone:</b> <i>{phone}</i>
             </p>
             <p>
-              <b>Username:</b> <i>{user.username}</i>
+              <b>Username:</b> <i>{username}</i>
             </p>
             <p>
-              <b>Website:</b> <i>{user.website}</i>
+              <b>Website:</b> <i>{website}</i>
             </p>
           </>
         )}

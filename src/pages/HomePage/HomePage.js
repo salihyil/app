@@ -1,28 +1,19 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { postList } from "../../service/User/api";
 import Loading from "../../components/Loading";
 import "./style.css";
+import { postListAsync } from "../../store/postList/slice";
 
 const HomePage = () => {
-  const [postListData, setPostListData] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const { loading, postListData, error } = useSelector(
+    (state) => state.postList
+  );
 
   useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      const listData = await postList();
-
-      if (listData) {
-        setPostListData(listData);
-      } else {
-        setLoading(true);
-      }
-
-      setLoading(false);
-    };
-    fetchData();
+    dispatch(postListAsync());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -43,6 +34,7 @@ const HomePage = () => {
             })}
           </ol>
         )}
+        {error ? <div style={{ color: "red" }}>{error}</div> : null}
       </main>
     </>
   );
