@@ -27,16 +27,12 @@ export const userSlice = createSlice({
   name: SLICE_NAME,
   initialState,
   reducers: {
-    setSuccess: (state, action) => {
-      state.success = action.payload;
-    },
     setLoading: (state, action) => {
       state.loading = action.payload;
     },
     Logout: (state, action) => {
-      localStorage.removeItem(USEREMAIL_LOCAL_STORAGE);
-      state.success = false;
-      state.name = "";
+      state.userEmail = localStorage.removeItem(USEREMAIL_LOCAL_STORAGE);
+
       state.error = false;
     },
   },
@@ -49,12 +45,12 @@ export const userSlice = createSlice({
 
       if (state.userDta.length > 0) {
         localStorage.setItem(USEREMAIL_LOCAL_STORAGE, state.userDta[0].email);
+        state.userEmail = state.userDta[0].email;
         state.user = state.userDta[0];
 
-        state.success = true;
         state.loading = false;
       } else {
-        state.success = false;
+        state.userEmail = localStorage.removeItem(USEREMAIL_LOCAL_STORAGE);
         state.loading = false;
         state.error = ERROR_MSG;
       }
@@ -67,6 +63,6 @@ export const userSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { setSuccess, setLoading, Logout } = userSlice.actions;
+export const { setLoading, Logout } = userSlice.actions;
 
 export default userSlice.reducer;
