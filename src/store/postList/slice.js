@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { postList } from "../../service/User/api";
+import { SLICE_NAME, TYPEPREFIX_NAME } from "./constants";
 
 const initialState = {
   postListData: [],
@@ -7,14 +8,14 @@ const initialState = {
   error: "",
 };
 
-export const postListAsync = createAsyncThunk("user/postList", async () => {
+export const postListAsync = createAsyncThunk(TYPEPREFIX_NAME, async () => {
   const postListDta = await postList();
 
   return postListDta;
 });
 
 export const postListSlice = createSlice({
-  name: "postList",
+  name: SLICE_NAME,
   initialState,
   reducers: {},
   extraReducers: {

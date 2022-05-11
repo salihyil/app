@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { postComment } from "../../service/User/api";
+import { SLICE_NAME, TYPEPREFIX_NAME } from "./constants";
 
 const initialState = {
   postCommentData: [],
@@ -8,7 +9,7 @@ const initialState = {
 };
 
 export const fetchPostCommentAsync = createAsyncThunk(
-  "user/postComment",
+  TYPEPREFIX_NAME,
   async (id) => {
     const postCommentDta = await postComment(id);
 
@@ -17,7 +18,7 @@ export const fetchPostCommentAsync = createAsyncThunk(
 );
 
 export const postCommentSlice = createSlice({
-  name: "postComment",
+  name: SLICE_NAME,
   initialState,
   reducers: {},
   extraReducers: {

@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { postDetail } from "../../service/User/api";
+import { SLICE_NAME, TYPEPREFIX_NAME } from "./constants";
 
 const initialState = {
   postDetailData: {},
@@ -8,7 +9,7 @@ const initialState = {
 };
 
 export const fetchPostDetailAsync = createAsyncThunk(
-  "user/postDetail",
+  TYPEPREFIX_NAME,
   async (id) => {
     const postDetailDta = await postDetail(id);
 
@@ -17,7 +18,7 @@ export const fetchPostDetailAsync = createAsyncThunk(
 );
 
 export const postDetailSlice = createSlice({
-  name: "postDetail",
+  name: SLICE_NAME,
   initialState,
   reducers: {},
   extraReducers: {
