@@ -1,27 +1,14 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { userData } from "../../service/User/api";
-import {
-  SLICE_NAME,
-  USEREMAIL_LOCAL_STORAGE,
-  ERROR_MSG,
-  TYPEPREFIX_NAME,
-} from "./constants";
+import { createSlice } from "@reduxjs/toolkit";
+
+import { SLICE_NAME, USEREMAIL_LOCAL_STORAGE, ERROR_MSG } from "./constants";
 
 const initialState = {
   userDta: [],
   userEmail: localStorage.getItem(USEREMAIL_LOCAL_STORAGE),
   user: {},
   error: "",
+  loading: false,
 };
-
-export const fetchUserAsync = createAsyncThunk(
-  TYPEPREFIX_NAME,
-  async (email) => {
-    const userDta = await userData(email);
-
-    return userDta;
-  }
-);
 
 export const userSlice = createSlice({
   name: SLICE_NAME,
@@ -32,16 +19,16 @@ export const userSlice = createSlice({
     },
     Logout: (state, action) => {
       state.userEmail = localStorage.removeItem(USEREMAIL_LOCAL_STORAGE);
-
       state.error = false;
+      state.loading = false;
     },
-  },
-  extraReducers: {
-    [fetchUserAsync.pending]: (state, action) => {
+
+    loginRequest(state) {
       state.loading = true;
     },
-    [fetchUserAsync.fulfilled]: (state, action) => {
+    loginSuccess(state, action) {
       state.userDta = action.payload;
+      state.userEmail = action.payload[0].email;
 
       if (state.userDta.length > 0) {
         localStorage.setItem(USEREMAIL_LOCAL_STORAGE, state.userDta[0].email);
@@ -55,14 +42,21 @@ export const userSlice = createSlice({
         state.error = ERROR_MSG;
       }
     },
-    [fetchUserAsync.rejected]: (state, action) => {
+    loginError(state, action) {
       state.loading = false;
-      state.error = action.error.message;
+      state.error = action.payload;
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setLoading, Logout } = userSlice.actions;
+export const {
+  setLoading,
+  Logout,
+  loginRequest,
+  loginSuccess,
+  loginError,
+  setUserName,
+} = userSlice.actions;
 
 export default userSlice.reducer;

@@ -17,22 +17,23 @@ export const postListAsync = createAsyncThunk(TYPEPREFIX_NAME, async () => {
 export const postListSlice = createSlice({
   name: SLICE_NAME,
   initialState,
-  reducers: {},
-  extraReducers: {
-    [postListAsync.pending]: (state, action) => {
+  reducers: {
+    pendingPostList: (state, action) => {
       state.loading = true;
     },
-    [postListAsync.fulfilled]: (state, action) => {
+    fulfilledPostList: (state, action) => {
       state.postListData = action.payload;
       state.loading = false;
     },
-    [postListAsync.rejected]: (state, action) => {
+    rejectedPostList: (state, action) => {
       state.loading = false;
-      state.error = action.error.message;
+      state.error = action.payload;
     },
   },
 });
 
 // Action creators are generated for each case reducer function
+export const { pendingPostList, fulfilledPostList, rejectedPostList } =
+  postListSlice.actions;
 
 export default postListSlice.reducer;
