@@ -1,21 +1,14 @@
-import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 import Loading from "../../components/Loading";
-import { fetchUserAsync } from "../../store/userData/slice";
-
 import "./styles.css";
 
 const UserInfo = () => {
-  const dispatch = useDispatch();
-  const { loading, error, name, username, phone, website } = useSelector(
-    (state) => state.userData
-  );
-
-  useEffect(() => {
-    dispatch(fetchUserAsync(localStorage.getItem("userEmail")));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const {
+    loading,
+    error,
+    user: { name, username, phone, website },
+  } = useSelector((state) => state.userData);
 
   return (
     <>

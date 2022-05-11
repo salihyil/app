@@ -10,7 +10,10 @@ const HeaderUser = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { name, loading } = useSelector((state) => state.userData);
+  const {
+    user: { name },
+    loading,
+  } = useSelector((state) => state.userData);
 
   useEffect(() => {
     if (name) {
