@@ -14,7 +14,6 @@ const PostDetail = () => {
   const { postDetailData, loading, error } = useSelector(
     (state) => state.postDetail
   );
-  console.log(postDetailData);
 
   useEffect(() => {
     dispatch(pendingPostDetail(params.id));
@@ -36,7 +35,9 @@ const PostDetail = () => {
         )}
         {error ? <div style={{ color: "red" }}>{error}</div> : null}
       </main>
-      <main className="comments-main">{/*  <PostComments /> */}</main>
+      <main className="comments-main">
+        <PostComments />
+      </main>
     </div>
   );
 };
