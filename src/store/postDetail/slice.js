@@ -1,13 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-/* import { postDetail } from "../../service/User/api"; */
-import { SLICE_NAME /* TYPEPREFIX_NAME */ } from "./constants";
+
+import { SLICE_NAME } from "./constants";
 
 const initialState = {
   postDetailData: {},
   loading: false,
   error: "",
 };
-
 
 export const postDetailSlice = createSlice({
   name: SLICE_NAME,

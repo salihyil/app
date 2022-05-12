@@ -3,9 +3,6 @@ import { call, put, takeLatest } from "redux-saga/effects";
 import { pendingPostList, fulfilledPostList, rejectedPostList } from "./slice";
 import { postList } from "../../service/User/api";
 
-/* import { createBrowserHistory } from "history";
-const history = createBrowserHistory(); */
-
 function* postListUser() {
   try {
     const postListDta = yield call(postList);
