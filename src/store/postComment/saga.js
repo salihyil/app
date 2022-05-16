@@ -13,7 +13,8 @@ function* postCommentUser({ payload }) {
 
     yield put(fulfilledPostComment(postDetailDta));
   } catch (error) {
-    yield put(rejectedPostComment("error"));
+    console.log(error);
+    yield put(rejectedPostComment(error.message));
   }
 }
 

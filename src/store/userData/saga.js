@@ -2,6 +2,7 @@ import { call, put, takeLatest } from "redux-saga/effects";
 
 import { loginRequest, loginSuccess, loginError } from "./slice";
 import { userData } from "../../service/User/api";
+import { ERROR_MSG } from "./constants";
 
 function* authorizeUser({ payload }) {
   try {
@@ -10,11 +11,10 @@ function* authorizeUser({ payload }) {
     if (userDta.length > 0) {
       yield put(loginSuccess(userDta));
     } else {
-      yield put(loginError("Kullanıcı bulunamadı"));
+      yield put(loginError(ERROR_MSG));
     }
   } catch (error) {
-    // Calling an error action so that UI can handle error
-    yield put(loginError("Request failed with status code 404"));
+    yield put(loginError(error.message));
   }
 }
 
