@@ -13,7 +13,6 @@ function* postDetailUser({ payload }) {
 
     yield put(fulfilledPostDetail(postDetailDta));
   } catch (error) {
-    console.log(error.message);
     yield put(rejectedPostDetail(error.message));
   }
 }
