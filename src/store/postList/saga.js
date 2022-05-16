@@ -9,7 +9,6 @@ function* postListUser() {
 
     yield put(fulfilledPostList(postListDta));
   } catch (error) {
-    // Calling an error action so that UI can handle error
     yield put(rejectedPostList(error.message));
   }
 }

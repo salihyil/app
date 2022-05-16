@@ -7,15 +7,6 @@ const initialState = {
   error: "",
 };
 
-/* export const fetchPostCommentAsync = createAsyncThunk(
-  TYPEPREFIX_NAME,
-  async (id) => {
-    const postCommentDta = await postComment(id);
-
-    return postCommentDta;
-  }
-); */
-
 export const postCommentSlice = createSlice({
   name: SLICE_NAME,
   initialState,
@@ -29,7 +20,7 @@ export const postCommentSlice = createSlice({
     },
     rejectedPostComment: (state, action) => {
       state.loading = false;
-      state.error = action.error.message;
+      state.error = action.payload;
     },
   },
 });
