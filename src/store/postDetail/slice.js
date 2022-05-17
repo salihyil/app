@@ -1,6 +1,6 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { postDetail } from "../../service/User/api";
-import { SLICE_NAME, TYPEPREFIX_NAME } from "./constants";
+import { createSlice } from "@reduxjs/toolkit";
+
+import { SLICE_NAME } from "./constants";
 
 const initialState = {
   postDetailData: {},
@@ -8,32 +8,25 @@ const initialState = {
   error: "",
 };
 
-export const fetchPostDetailAsync = createAsyncThunk(
-  TYPEPREFIX_NAME,
-  async (id) => {
-    const postDetailDta = await postDetail(id);
-
-    return postDetailDta;
-  }
-);
-
 export const postDetailSlice = createSlice({
   name: SLICE_NAME,
   initialState,
-  reducers: {},
-  extraReducers: {
-    [fetchPostDetailAsync.pending]: (state, action) => {
+  reducers: {
+    pendingPostDetail: (state, action) => {
       state.loading = true;
     },
-    [fetchPostDetailAsync.fulfilled]: (state, action) => {
+    fulfilledPostDetail: (state, action) => {
       state.postDetailData = action.payload;
       state.loading = false;
     },
-    [fetchPostDetailAsync.rejected]: (state, action) => {
+    rejectedPostDetail: (state, action) => {
       state.loading = false;
-      state.error = action.error.message;
+      state.error = action.payload;
     },
   },
 });
+
+export const { pendingPostDetail, fulfilledPostDetail, rejectedPostDetail } =
+  postDetailSlice.actions;
 
 export default postDetailSlice.reducer;

@@ -4,14 +4,15 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { VALIDATION_SCHEMA } from "./validate";
 
-import { fetchUserAsync } from "../../store/userData/slice";
+import { loginRequest } from "../../store/userData/slice";
+import Loading from "../../components/Loading";
 
 const Authentication = () => {
   const dispatch = useDispatch();
-  const { error } = useSelector((state) => state.userData);
+  const { error, loading } = useSelector((state) => state.userData);
 
   const handleSubmit = ({ email }) => {
-    dispatch(fetchUserAsync(email));
+    dispatch(loginRequest(email));
   };
 
   return (
@@ -30,6 +31,7 @@ const Authentication = () => {
               <div style={{ color: "red" }}>{props.errors.email}</div>
             ) : null}
             <button type="submit">Giriş Yap</button>
+            {loading ? <Loading /> : null}
             {error ? <div style={{ color: "red" }}>{error}</div> : null}
           </Form>
         );

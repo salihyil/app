@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { fetchPostCommentAsync } from "../../store/postComment/slice";
 import Loading from "../../components/Loading";
 import "./styles.css";
+import { pendingPostComment } from "../../store/postComment/slice";
 
 const PostComments = () => {
   const dispatch = useDispatch();
@@ -15,7 +15,7 @@ const PostComments = () => {
   );
 
   useEffect(() => {
-    dispatch(fetchPostCommentAsync(params.id));
+    dispatch(pendingPostComment(params.id));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

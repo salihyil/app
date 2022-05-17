@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import Loading from "../../components/Loading";
 import "./style.css";
-import { postListAsync } from "../../store/postList/slice";
+import { pendingPostList } from "../../store/postList/slice";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -13,7 +13,7 @@ const HomePage = () => {
   );
 
   useEffect(() => {
-    dispatch(postListAsync());
+    dispatch(pendingPostList());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
